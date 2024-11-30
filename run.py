@@ -12,10 +12,6 @@ with app.app_context():
     db.create_all()
     app.register_blueprint(users_bp)
 
-# @app.route('/')
-# def get_users():
-#     # Implementar lógica para obter todos os usuários
-#     return render_template('base.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

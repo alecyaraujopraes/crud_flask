@@ -36,44 +36,17 @@
 		&nbsp;
 	</div>
 	
-	<div class="container" id="listing">
-		<h3>Usuários</h3>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Username</th>
-					<th>E-mail</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>NU-CH-000001</td>
-					<td>Chocolate chip cookies</td>
-					<td>Pack</td>
-					<td>
-						<a href="/users/{{id}}" class="btn btn-default">Editar</a> &nbsp; 
-						<a href="/users/{{id}}" class="btn btn-default">Deletar</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	
 	<div class="container" id="new-entry">
 		<h3>Novo usuário</h3>
-		<form>
-			<div class="form-group">
-				<label class="inline-80">Id</label> &nbsp;
-				<input type="text" id="id" />
+		<form action="/users" method="POST">
 			</div>
 			<div class="form-group">
 				<label class="inline-80">Username</label> &nbsp;
-				<input type="text" id="username" />
+				<input type="text" name="username" id="username" />
 			</div>
 			<div class="form-group">
 				<label class="inline-80">E-mail</label> &nbsp;
-				<input type="text" id="email" />
+				<input type="text" name="email" id="email" />
 			</div>
 			<div class="form-group">
 				<input type="submit" value="Salvar" class="btn btn-primary" />
