@@ -9,12 +9,12 @@ def get_users():
     pass
 
 @users_bp.route('/users/<int:user_id>', methods=['GET'])
-    def get_user(user_id):
+def get_user(user_id):
     # Implementar lógica para obter um usuário específico
     pass
 
 @users_bp.route('/users', methods=['POST'])
-    def add_user():
+def add_user():
     # Implementar lógica para adicionar um novo usuário
     pass
 
@@ -24,6 +24,6 @@ def update_user(user_id):
     pass
 
 @users_bp.route('/users/<int:user_id>', methods=['DELETE'])
-    def delete_user(user_id):
+def delete_user(user_id):
     # Implementar lógica para deletar um usuário
     pass

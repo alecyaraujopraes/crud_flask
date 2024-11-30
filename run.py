@@ -3,8 +3,7 @@ from app.models import db
 from app.routes import users_bp
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db' # Use o SQLite
-como banco de dados
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db' # Use o SQLite como banco de dados
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
