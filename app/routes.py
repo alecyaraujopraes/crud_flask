@@ -1,12 +1,14 @@
 from flask import Blueprint, request, jsonify
 from .models import db, User
+from flask import render_template
+
 
 users_bp = Blueprint('users', __name__)
 
 @users_bp.route('/users', methods=['GET'])
 def get_users():
     # Implementar lógica para obter todos os usuários
-    pass
+    return render_template('begin.html', person=name)
 
 @users_bp.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
