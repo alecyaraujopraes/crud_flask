@@ -28,13 +28,20 @@
 	</div>
 	
 	<div class="container" id="menu">
-		<a href="#" class="btn btn-default">Get User</a> &nbsp; 
-		<a href="#" class="btn btn-default">Get Users</a> &nbsp; 
-		<a href="#" class="btn btn-default">Add User</a> &nbsp; 
-		<a href="#" class="btn btn-default">Update User</a> &nbsp; 
-        <a href="#" class="btn btn-default">Delete User</a> &nbsp;
+		<a href="/users/(id)" class="btn btn-default">Get User</a> &nbsp; 
+		<a href="/users" class="btn btn-default">Get Users</a> &nbsp; 
+		<a href="/users" class="btn btn-default">Add User</a> &nbsp; 
+		<a href="/users/{id}" class="btn btn-default">Update User</a> &nbsp; 
+        <a href="/users/{id}" class="btn btn-default">Delete User</a> &nbsp;
 	</div>
-	
+
+    <div class="form">
+        <form action="/" method="POST">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Add Task">
+        </form>
+	</div>
+
 	<div>
 		&nbsp;
 	</div>
