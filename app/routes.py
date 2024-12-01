@@ -26,7 +26,7 @@ def add_user():
     try:
         db.session.add(new_user)
         db.session.commit()
-        return redirect('/')
+        return redirect('/get/users')
     except:
         return 'There was an issue adding the new user'
 
@@ -46,16 +46,18 @@ def update_user(id):
 
     return render_template('get_users.html')
 
-@users_bp.route('/delete/users/<int:id>', methods=['DELETE'])
+
+@users_bp.route('/delete/users/<int:id>', methods=['DELETE','GET'])
 def delete_user(id):
     user_to_delete = User.query.get_or_404(id)
 
     try:
         db.session.delete(user_to_delete)
         db.session.commit()
-        return render_template('get_users.html')
+        return redirect('/get/users')
     except:
         return 'There was a problem deleting that user'
+
 
 @users_bp.route('/')
 def base():
