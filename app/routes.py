@@ -11,10 +11,10 @@ def get_users():
     return render_template('get_users.html', users=users)
 
 
-@users_bp.route('/get/users/<int:user_id>', methods=['GET'])
-def get_user(user_id):
-    users = User.query.all()
-    return render_template('get_users.html', users=user_id)
+@users_bp.route('/get/users/<int:id>', methods=['GET'])
+def get_user(id):
+    user = User.query.get_or_404(id)
+    return render_template('get_users.html', users=user)
 
 
 @users_bp.route('/post/users', methods=['POST'])
@@ -40,7 +40,7 @@ def update_user(id):
 
     try:
         db.session.commit()
-        return render_template('get_users.html')
+        return redirect('/get/users')
     except:
         return 'There was an issue updating your task'
 
