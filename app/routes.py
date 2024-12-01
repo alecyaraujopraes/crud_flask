@@ -5,17 +5,19 @@ from flask import render_template
 
 users_bp = Blueprint('users', __name__)
 
-@users_bp.route('/users', methods=['GET'])
+@users_bp.route('/get/users', methods=['GET'])
 def get_users():
     users = User.query.all()
     return render_template('get_users.html', users=users)
 
-@users_bp.route('/users/<int:user_id>', methods=['GET'])
+
+@users_bp.route('/get/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
     users = User.query.all()
-    return render_template('get_users.html', users=users)
+    return render_template('get_users.html', users=user_id)
 
-@users_bp.route('/users', methods=['POST'])
+
+@users_bp.route('/post/users', methods=['POST'])
 def add_user():
     username = request.form['username']
     email = request.form['email']
@@ -29,8 +31,8 @@ def add_user():
         return 'There was an issue adding the new user'
 
 
-@users_bp.route('/users/<int:user_id>', methods=['PUT'])
-def update_user(user_id):
+@users_bp.route('/put/users/<int:id>', methods=['PUT'])
+def update_user(id):
     user = User.query.get_or_404(id)
 
     user.username = request.form['username']
@@ -38,20 +40,20 @@ def update_user(user_id):
 
     try:
         db.session.commit()
-        return redirect('/')
+        return render_template('get_users.html')
     except:
         return 'There was an issue updating your task'
 
-    return render_template('get_users.html', person=name)
+    return render_template('get_users.html')
 
-@users_bp.route('/users/<int:user_id>', methods=['DELETE'])
-def delete_user(user_id):
+@users_bp.route('/delete/users/<int:id>', methods=['DELETE'])
+def delete_user(id):
     user_to_delete = User.query.get_or_404(id)
 
     try:
         db.session.delete(user_to_delete)
         db.session.commit()
-        return redirect('/')
+        return render_template('get_users.html')
     except:
         return 'There was a problem deleting that user'
 
