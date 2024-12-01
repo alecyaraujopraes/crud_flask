@@ -28,7 +28,7 @@
 	</div>
 	
 	<div class="container" id="menu">
-		<a href="/" class="btn btn-default">Voltar</a> &nbsp; 
+		<a href="/get/users" class="btn btn-default">Voltar</a> &nbsp; 
 	</div>
 	
 	<div>
@@ -42,20 +42,21 @@
 				<tr>
 					<th>Username</th>
 					<th>E-mail</th>
+					<th>Data de criação</th>
+					<th>Data de atualização</th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for user in users %}
 				<tr>
 					<td>{{ user.username }}</td>
 					<td>{{ user.email }}</td>
+					<td>{{ user.created_date }}</td>
+					<td>{{ user.updated_date }}</td>
 					<td>
 						<a href="/put/users/{{user.id}}" class="btn btn-default">Editar</a> &nbsp;
-						<a href="/get/users/{{user.id}}" class="btn btn-default">Detalhes</a> &nbsp; 
 						<a href="/delete/users/{{user.id}}" class="btn btn-default">Deletar</a>
 					</td>
 				</tr>
-				{% endfor %}
 			</tbody>
 		</table>
 	</div>
