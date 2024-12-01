@@ -52,7 +52,8 @@
 					<td>
 						<a href="{{ url_for('users.update_user',id=user.id) }}" class="btn btn-default">Editar</a> &nbsp;
 						<a href="{{ url_for('users.get_user',id=user.id) }}" class="btn btn-default">Detalhes</a> &nbsp; 
-						<a href="{{ url_for('users.delete_user',id=user.id) }}" class="btn btn-default">Deletar</a>
+						<a href="#" class="btn btn-default">Deletar</a>
+						<a href="#" class="btn btn-default" onclick="deleteUser({{ user.id }})">Deletar</a>
 					</td>
 				</tr>
 				{% endfor %}
