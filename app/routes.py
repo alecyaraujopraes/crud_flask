@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, redirect
+from flask import Blueprint, request, jsonify, redirect, url_for
 from .models import db, User
 from flask import render_template
 from datetime import datetime
@@ -6,19 +6,19 @@ from datetime import datetime
 
 users_bp = Blueprint('users', __name__)
 
-@users_bp.route('/get/users', methods=['GET'])
+@users_bp.route('/users', methods=['GET'])
 def get_users():
     users = User.query.all()
     return render_template('get_users.html', users=users)
 
 
-@users_bp.route('/get/users/<int:id>', methods=['GET'])
+@users_bp.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
     user = User.query.get_or_404(id)
     return render_template('get_user.html', user=user)
 
 
-@users_bp.route('/post/users', methods=['POST'])
+@users_bp.route('/users', methods=['POST'])
 def add_user():
     username = request.form['username']
     email = request.form['email']
@@ -27,12 +27,12 @@ def add_user():
     try:
         db.session.add(new_user)
         db.session.commit()
-        return redirect('/get/users')
+        return redirect(url_for('users.get_users'))
     except:            
-        return redirect('/get/users')
+        return "Erro ao adicionar o user"
 
 
-@users_bp.route('/put/users/<int:id>', methods=['PUT', 'GET'])
+@users_bp.route('/users/<int:id>', methods=['PUT'])
 def update_user(id):
     user = User.query.get_or_404(id)
 
@@ -42,14 +42,12 @@ def update_user(id):
 
     try:
         db.session.commit()
-        return redirect('/get/users')
+        return redirect(f'/users/{id}')
     except:
-        return 'There was an issue updating your user'
-
-    return render_template('get_users.html')
+        return 'There was an issue updating your task'
 
 
-@users_bp.route('/delete/users/<int:id>', methods=['DELETE','GET'])
+@users_bp.route('/users/<int:id>', methods=['DELETE'])
 def delete_user(id):
     user_to_delete = User.query.get_or_404(id)
 

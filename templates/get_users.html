@@ -9,7 +9,7 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	
-	<title>Macs R Poo</title>
+	<title>Picpay</title>
 	
 	<style>
 	.inline-80 {
@@ -28,7 +28,7 @@
 	</div>
 	
 	<div class="container" id="menu">
-		<a href="/" class="btn btn-default">Voltar</a> &nbsp; 
+		<a href="{{ url_for('users.base')}}" class="btn btn-default">Voltar</a> &nbsp; 
 	</div>
 	
 	<div>
@@ -50,9 +50,9 @@
 					<td>{{ user.username }}</td>
 					<td>{{ user.email }}</td>
 					<td>
-						<a href="/put/users/{{user.id}}" class="btn btn-default">Editar</a> &nbsp;
-						<a href="/get/users/{{user.id}}" class="btn btn-default">Detalhes</a> &nbsp; 
-						<a href="/delete/users/{{user.id}}" class="btn btn-default">Deletar</a>
+						<a href="{{ url_for('users.update_user',id=user.id) }}" class="btn btn-default">Editar</a> &nbsp;
+						<a href="{{ url_for('users.get_user',id=user.id) }}" class="btn btn-default">Detalhes</a> &nbsp; 
+						<a href="{{ url_for('users.delete_user',id=user.id) }}" class="btn btn-default">Deletar</a>
 					</td>
 				</tr>
 				{% endfor %}
@@ -62,7 +62,7 @@
 	
 	<div class="container" id="new-entry">
 		<h3>Novo usuário</h3>
-		<form action="/post/users" method="POST">
+		<form action="/users" method="POST">
 			</div>
 			<div class="form-group">
 				<label class="inline-80">Username</label> &nbsp;
