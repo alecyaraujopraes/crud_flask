@@ -54,7 +54,7 @@ def delete_user(id):
     try:
         db.session.delete(user_to_delete)
         db.session.commit()
-        return redirect('/get/users')
+        return render_template('get_users.html')
     except:
         return 'There was a problem deleting that user'
 
