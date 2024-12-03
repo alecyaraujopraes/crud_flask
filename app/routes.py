@@ -20,6 +20,10 @@ def get_users():
 @users_bp.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
     user = User.query.get_or_404(id)
+
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
     user_list = [user.to_dict()]
     try:
         return jsonify(user_list), 200
@@ -56,7 +60,7 @@ def update_user(id):
     email = data.get('email')
 
     if not username or not email:
-        return jsonify({"error": "Nome e e-mail são obrigatórios"}), 400
+        return jsonify({"error": "Username and e-mail are required"}), 400
 
     user.username = username
     user.email = email
@@ -72,6 +76,9 @@ def update_user(id):
 @users_bp.route('/users/<int:id>', methods=['DELETE'])
 def delete_user(id):
     user_to_delete = User.query.get_or_404(id)
+
+    if not user:
+        return jsonify({"error": "User not found"}), 404
 
     try:
         db.session.delete(user_to_delete)
