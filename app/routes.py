@@ -9,42 +9,64 @@ users_bp = Blueprint('users', __name__)
 @users_bp.route('/users', methods=['GET'])
 def get_users():
     users = User.query.all()
-    return render_template('get_users.html', users=users)
+
+    user_list = [user.to_dict() for user in users]
+    try:
+        return jsonify(user_list), 200
+    except:
+        return jsonify({"message": "Error to retrieve users"}), 400
 
 
 @users_bp.route('/users/<int:id>', methods=['GET'])
 def get_user(id):
     user = User.query.get_or_404(id)
-    return render_template('get_user.html', user=user)
+    user_list = [user.to_dict()]
+    try:
+        return jsonify(user_list), 200
+    except:
+        return jsonify({"message": "Error to retrieve details of user"}), 400
 
 
 @users_bp.route('/users', methods=['POST'])
 def add_user():
-    username = request.form['username']
-    email = request.form['email']
+    data = request.get_json()
+
+    username = data.get('username')
+    email = data.get('email')
     new_user = User(username=username, email=email)
 
     try:
         db.session.add(new_user)
         db.session.commit()
-        return redirect(url_for('users.get_users'))
+        return jsonify({"message": "User added"}), 200
     except:            
-        return "Erro ao adicionar o user"
+        return jsonify({"message": "Failed to add user"}), 400
 
 
 @users_bp.route('/users/<int:id>', methods=['PUT'])
 def update_user(id):
     user = User.query.get_or_404(id)
 
-    user.username = request.form['username']
-    user.email = request.form['email']
-    user.updated_date = datetime.utcnow
+    if not user:
+        return jsonify({"error": "Usuário não encontrado"}), 404
+    
+    data = request.get_json()
+
+    username = data.get('username')
+    email = data.get('email')
+
+    if not username or not email:
+        return jsonify({"error": "Nome e e-mail são obrigatórios"}), 400
+
+    user.username = username
+    user.email = email
+    user.updated_date = datetime.utcnow()
 
     try:
         db.session.commit()
-        return redirect(f'/users/{id}')
+        return jsonify({"message": "User updated"}), 200
     except:
-        return 'There was an issue updating your task'
+        return jsonify({"message": "Failed to update user"}), 400
 
 
 @users_bp.route('/users/<int:id>', methods=['DELETE'])
@@ -54,9 +76,9 @@ def delete_user(id):
     try:
         db.session.delete(user_to_delete)
         db.session.commit()
-        return render_template('get_users.html')
+        return jsonify({"message": "User deleted successfully"}), 200
     except:
-        return 'There was a problem deleting that user'
+        return jsonify({"message": "Failed to delete user"}), 400
 
 
 @users_bp.route('/')
