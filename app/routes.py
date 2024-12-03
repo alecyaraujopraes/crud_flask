@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify, redirect, url_for
 from .models import db, User
 from flask import render_template
 from datetime import datetime
+from email_validator import validate_email, EmailNotValidError
 
 
 users_bp = Blueprint('users', __name__)
@@ -37,6 +38,18 @@ def add_user():
 
     username = data.get('username')
     email = data.get('email')
+
+    if not username or not email:
+        return jsonify({"error": "Username and e-mail are required"}), 400
+
+    if User.query.filter(User.email.ilike(email)).first():
+        return jsonify({"error": "Email is already in use."}), 400
+
+    try:
+        validate_email(email)
+    except EmailNotValidError as e:
+        return jsonify({"error": "E-mail not valid"}), 400
+    
     new_user = User(username=username, email=email)
 
     try:
