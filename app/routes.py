@@ -25,9 +25,8 @@ def get_user(id):
     if not user:
         return jsonify({"error": "User not found"}), 404
 
-    user_list = [user.to_dict()]
     try:
-        return jsonify(user_list), 200
+        return jsonify(user.to_dict()), 200
     except:
         return jsonify({"message": "Error to retrieve details of user"}), 400
 
@@ -90,7 +89,7 @@ def update_user(id):
 def delete_user(id):
     user_to_delete = User.query.get_or_404(id)
 
-    if not user:
+    if not user_to_delete:
         return jsonify({"error": "User not found"}), 404
 
     try:
@@ -100,7 +99,3 @@ def delete_user(id):
     except:
         return jsonify({"message": "Failed to delete user"}), 400
 
-
-@users_bp.route('/')
-def base():
-    return render_template('base.html')

@@ -2,15 +2,16 @@ from flask import Flask
 from app.models import db
 from app.routes import users_bp  # Assuming this imports the blueprint
 
+
 def create_app():
     app = Flask(__name__)
+    app.json.sort_keys = False
+
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
-    # Initialize database
     db.init_app(app)
     
-    # Register blueprints
     app.register_blueprint(users_bp)
     
     return app
