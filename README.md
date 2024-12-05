@@ -26,8 +26,8 @@ Ensure you have the following installed:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-repo/flask-crud-app.git
-   cd flask-crud-app
+   git clone https://github.com/alecyaraujopraes/crud_flask
+   cd crud-flask
    ```
 
 2. **Create a Virtual Environment**:
@@ -42,20 +42,10 @@ Ensure you have the following installed:
    pip install -r requirements.txt
    ```
 
-4. **Set Up the Database**:
-   Update the `SQLALCHEMY_DATABASE_URI` in the configuration file (e.g., `config.py`) to point to your preferred database.
-
-   Initialize the database:
-   ```bash
-   flask db upgrade
-   ```
-
-5. **Run the Application**:
+4. **Run the Application**:
    ```bash
    flask run
    ```
-
-   The application will be available at `http://127.0.0.1:5000/`.
 
 ## API Endpoints
 
@@ -101,11 +91,7 @@ Create a new user.
 - **Response**:
   ```json
   {
-      "id": 2,
-      "username": "newuser",
-      "email": "new@example.com",
-      "created_date": "...",
-      "updated_date": "..."
+    "message": "User added"
   }
   ```
 
@@ -141,16 +127,6 @@ Delete a user.
    pytest
    ```
 
-2. **Test Coverage Report** (Optional):
-   Install `pytest-cov`:
-   ```bash
-   pip install pytest-cov
-   ```
-   Run with coverage:
-   ```bash
-   pytest --cov=app
-   ```
-
 ## Project Structure
 ```
 flask-crud-app/
@@ -158,7 +134,7 @@ flask-crud-app/
 │   ├── __init__.py
 │   ├── models.py       # Database models
 │   ├── routes.py       # API endpoints
-│   └── config.py       # Configuration settings
+│   └── database.py     # Configuration settings
 ├── tests/
 │   ├── __init__.py
 │   └── test_users.py   # Unit tests for User endpoints
