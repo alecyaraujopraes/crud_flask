@@ -24,11 +24,11 @@
 	</div>
 
 	<script>
-		function deleteUser(userId) {
-			const endpoint = `http://localhost:5000/users/${userId}`; // Endpoint para deletar o usuário
+		function getUsers() {
+			const endpoint = `http://localhost:5000/users`; // Endpoint para deletar o usuário
 
 			fetch(endpoint, {
-				method: 'DELETE', // Define o método HTTP como DELETE
+				method: 'GET', // Define o método HTTP como DELETE
 			})
 			.then(response => {
 				if (response.redirected) {
@@ -37,15 +37,15 @@
 				} else if (response.ok) {
 					// Resposta OK (200-299)
 					alert('Usuário deletado com sucesso!');
-					window.location.reload();
+					window.location.href = 'get_users.html';
 				} else {
 					// Resposta com erro
-					throw new Error('Erro ao deletar o usuário.');
+					alert('Erro ao gerar página.');
 				}
 			})
 			.catch(error => {
 				console.error('Erro:', error);
-				alert('Houve um problema ao tentar deletar o usuário.');
+				alert('Houve um problema ao gerar página.');
 			});
 		}
 	</script>
@@ -54,33 +54,12 @@
 		&nbsp;
 	</div>
 	
-	<div>
-		&nbsp;
+	<div class="container" id="menu">
+		<a href="#" onclick="getUsers()" class="btn btn-default">Get Users</a> &nbsp; 
 	</div>
 	
-	<div class="container" id="listing">
-		<h3>Usuários</h3>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Username</th>
-					<th>E-mail</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for user in users %}
-				<tr>
-					<td>{{ user.username }}</td>
-					<td>{{ user.email }}</td>
-					<td>
-						<a href="#" onclick="editUser({{ user.id }})" class="btn btn-default">Editar</a> &nbsp;
-						<a href="#" onclick="detailsUser({{ user.id }})" class="btn btn-default">Detalhes</a> &nbsp; 
-						<a href="#" onclick="deleteUser({{ user.id }})" class="btn btn-default">Deletar</a>
-					</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+	<div>
+		&nbsp;
 	</div>
 	
 	<div class="container" id="new-entry">
